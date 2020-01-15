@@ -77,8 +77,8 @@ private extension XPC {
       self?.errorHandler(CocoaError(.xpcConnectionInterrupted))
     }
     let anyProxy = connection.remoteObjectProxyWithErrorHandler { [weak self] error in
-      os_log(.error, log: events, "No Reply: %{public}s", String(describing: self))
-      self?.errorHandler(CocoaError(.xpcConnectionReplyInvalid))
+      os_log(.error, log: events, "No Reply: %{public}s", String(describing: error))
+      self?.errorHandler(error)
     }
     guard let proxy = anyProxy as? P else {
       os_log(.error, log: events, "Invalid Proxy Type")
